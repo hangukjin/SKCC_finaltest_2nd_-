@@ -184,7 +184,7 @@ sudo yum install cloudera-manager-daemons cloudera-manager-agent
 # 2.
 ## 1.
 ```sql
-sql> CREATE DATABASES test
+mysql> CREATE DATABASES test
 ```
 
 ## 2.
@@ -210,5 +210,63 @@ mysql> SELECT COUNT(*) FROM authors;
 |    10000 |
 +----------+
 1 row in set (0.00 sec)
+
+```
+
+## 3.
+```sql
+mysql> GRANT ALL ON  training.* TO 'training'@'%' IDENTIFIED BY 'training';
+```
+
+
+# 3.
+## 1.
+```
+sqoop import --connect jdbc:mysql://localhost/test --username training -P --table posts --target-dir /test/posts
+
+19/06/19 07:13:27 INFO mapreduce.Job: Counters: 15
+File System Counters
+FILE: Number of bytes read=132951514
+FILE: Number of bytes written=238856121
+FILE: Number of read operations=0
+FILE: Number of large read operations=0
+FILE: Number of write operations=0
+Map-Reduce Framework
+Map input records=110000
+Map output records=110000
+Input split bytes=422
+Spilled Records=0
+Failed Shuffles=0
+Merged Map outputs=0
+GC time elapsed (ms)=43
+Total committed heap usage (bytes)=1901592576
+File Input Format Counters
+Bytes Read=0
+File Output Format Counters
+Bytes Written=41338007
+
+
+sqoop import --connect jdbc:mysql://localhost/test --username root -P --table authors --target-dir /test/authors
+
+INFO mapreduce.Job: Counters: 15
+File System Counters
+FILE: Number of bytes read=132952520
+FILE: Number of bytes written=137431188
+FILE: Number of read operations=0
+FILE: Number of large read operations=0
+FILE: Number of write operations=0
+Map-Reduce Framework
+Map input records=10000
+Map output records=10000
+Input split bytes=415
+Spilled Records=0
+Failed Shuffles=0
+Merged Map outputs=0
+GC time elapsed (ms)=0
+Total committed heap usage (bytes)=1835008000
+File Input Format Counters
+Bytes Read=0
+File Output Format Counters
+Bytes Written=766811
 
 ```
